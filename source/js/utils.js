@@ -191,7 +191,7 @@
       if (service === 'fancybox') {
         Array.from(ele).forEach(i => {
           if (i.parentNode.tagName !== 'A') {
-            const dataSrc = i.dataset.lazySrc || i.src
+            const dataSrc = i.dataset.originPic || i.dataset.lazySrc || i.src
             const dataCaption = i.title || i.alt || ''
             btf.wrap(i, 'a', { href: dataSrc, 'data-fancybox': 'gallery', 'data-caption': dataCaption, 'data-thumb': dataSrc })
           }

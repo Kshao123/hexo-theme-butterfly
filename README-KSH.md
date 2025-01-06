@@ -25,3 +25,15 @@ nav#nav
       if theme.nav.display_title
         span.site-name=config.realTitle
 ```
+
+## 0.3
+
+> 增加 fancybox 的缩略图实现
+
+- 修改 `/source/js/utils.js` L:192，增加 fancybox 的缩略图，字段来源新增的 自定义标签
+
+```js
+const dataSrc = i.dataset.originPic || i.dataset.lazySrc || i.src
+```
+
+- 增加 `/scripts/tag/thumb_image.js` 实现自定义标签，用于给 fancybox 增加自定义属性
