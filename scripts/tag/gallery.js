@@ -11,10 +11,12 @@
 
 const urlFor = require('hexo-util').url_for.bind(hexo)
 
+const cheerio = require('cheerio');
+const { THUMBNAIL_TAG } = require('./thumbnail');
+
 const DEFAULT_LIMIT = 10
 const DEFAULT_FIRST_LIMIT = 10
 const IMAGE_REGEX = /!\[(.*?)\]\(([^\s]*)\s*(?:["'](.*?)["']?)?\s*\)/g
-const THUMBNAIL_TAG = 'thumb-image';
 
 /**
  * 将自定义的缩略图 标签转成 data 模式
@@ -26,25 +28,32 @@ const parseThumbnailTag = (content) => {
     return images;
   }
   
-  const domParser = new DOMParser();
-  const parsedDocument = domParser.parseFromString(content, 'text/html');
-  const imagesDom = parsedDocument.images;
-  if (!imagesDom?.length) {
+  // 使用 cheerio 解析 HTML 字符串
+  const $ = cheerio.load(content);
+  
+  // 获取所有的 <img> 元素
+  const imagesDom = $('img');
+  
+  if (!imagesDom.length) {
     return images;
   }
   
-  images = Array.from(imagesDom).reduce((pre, currentImg) => {
-    const { src: url, alt, dataset } = currentImg;
-    pre.push({
+  // 使用 cheerio 的 .each() 方法遍历所有 <img> 元素
+  images = imagesDom.map((index, element) => {
+    const url = $(element).attr('src');
+    const alt = $(element).attr('alt');
+    const dataset = $(element).data(); // 获取 data-* 属性
+    
+    return {
       url,
       alt,
       dataset
-    })
-    return pre;
-  }, [])
+    };
+  }).get(); // .get() 将 cheerio 对象转为普通的 JavaScript 数组
   
   return images;
-}
+};
+
 
 // Helper functions
 const parseGalleryArgs = args => {
