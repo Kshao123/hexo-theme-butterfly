@@ -36,4 +36,6 @@ nav#nav
 const dataSrc = i.dataset.originPic || i.dataset.lazySrc || i.src
 ```
 
-- 增加 `/scripts/tag/thumb_image.js` 实现自定义标签，用于给 fancybox 增加自定义属性
+- 增加 `/scripts/tag/thumb-image.js` 实现自定义标签，用于给 fancybox 增加自定义属性
+
+- 修改 `/scripts/tag/gallery.js` 和 `/source/js/main.js` L: 262，增加 Gallery 对缩略图的支持

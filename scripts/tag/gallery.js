@@ -14,6 +14,37 @@ const urlFor = require('hexo-util').url_for.bind(hexo)
 const DEFAULT_LIMIT = 10
 const DEFAULT_FIRST_LIMIT = 10
 const IMAGE_REGEX = /!\[(.*?)\]\(([^\s]*)\s*(?:["'](.*?)["']?)?\s*\)/g
+const THUMBNAIL_TAG = 'thumb-image';
+
+/**
+ * 将自定义的缩略图 标签转成 data 模式
+ * 预计接受的 Content 为：<img src="${thumbnail}" data-origin-pic="${src}" data-${THUMBNAIL_TAG} />
+*/
+const parseThumbnailTag = (content) => {
+  let images = [];
+  if (!content?.includes(THUMBNAIL_TAG)) {
+    return images;
+  }
+  
+  const domParser = new DOMParser();
+  const parsedDocument = domParser.parseFromString(content, 'text/html');
+  const imagesDom = parsedDocument.images;
+  if (!imagesDom?.length) {
+    return images;
+  }
+  
+  images = Array.from(imagesDom).reduce((pre, currentImg) => {
+    const { src: url, alt, dataset } = currentImg;
+    pre.push({
+      url,
+      alt,
+      dataset
+    })
+    return pre;
+  }, [])
+  
+  return images;
+}
 
 // Helper functions
 const parseGalleryArgs = args => {
@@ -25,7 +56,7 @@ const parseGalleryArgs = args => {
 }
 
 const parseImageContent = content => {
-  const images = []
+  const images = parseThumbnailTag(content)
   let match
 
   while ((match = IMAGE_REGEX.exec(content)) !== null) {

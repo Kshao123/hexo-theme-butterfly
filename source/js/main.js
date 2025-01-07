@@ -259,8 +259,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const createImageItem = item => {
       const alt = item.alt ? `alt="${sanitizeString(item.alt)}"` : ''
       const title = item.title ? `title="${sanitizeString(item.title)}"` : ''
+      const originPic = item.dataset.originPic;
       return `<div class="item">
-        <img src="${item.url}" data-grid-maintained-target="true" ${alt} ${title} />
+        <img src="${item.url}" data-grid-maintained-target="true" ${alt} ${title} data-origin-pic="${originPic}" />
       </div>`
     }
 
