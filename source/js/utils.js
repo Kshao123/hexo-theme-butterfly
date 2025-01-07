@@ -209,7 +209,7 @@
               }
             },
             Carousel: {
-              transition: 'slide'
+              transition: 'crossfade' // slide -> slide 跑马灯，图片为两个时方向上会 bug
             },
             Toolbar: {
               display: {
