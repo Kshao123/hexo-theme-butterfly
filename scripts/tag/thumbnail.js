@@ -1,7 +1,5 @@
 const THUMBNAIL_TAG = 'thumbnail';
 
-exports.THUMBNAIL_TAG = THUMBNAIL_TAG;
-
 /**
  * 使用示例：{% thumb-image SRC_URL imageMogr2/thumbnail/!50p %}
 */

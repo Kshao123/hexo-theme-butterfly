@@ -12,11 +12,11 @@
 const urlFor = require('hexo-util').url_for.bind(hexo)
 
 const cheerio = require('cheerio');
-const { THUMBNAIL_TAG } = require('./thumbnail');
 
 const DEFAULT_LIMIT = 10
 const DEFAULT_FIRST_LIMIT = 10
 const IMAGE_REGEX = /!\[(.*?)\]\(([^\s]*)\s*(?:["'](.*?)["']?)?\s*\)/g
+const THUMBNAIL_TAG = 'thumbnail'
 
 /**
  * 将自定义的缩略图 标签转成 data 模式
