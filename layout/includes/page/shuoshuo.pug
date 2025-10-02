@@ -46,6 +46,9 @@
 
     - const localDate = page.shuoshuo_url ? [] : shuoshuoFN(site.data.shuoshuo, page)
 
+    if !page.shuoshuo_url
+      script(type='application/json' id='shuoshuo-data')!= safeJSON(localDate)
+
     script.
       (() => {
         const limitConfig = !{ JSON.stringify(page.limit || {}) }
@@ -280,7 +283,8 @@
               const response = await fetch('!{url_for(page.shuoshuo_url)}')
               originData = await response.json()
             } else {
-              originData = !{JSON.stringify(localDate)}
+              const dataElement = document.getElementById('shuoshuo-data')
+              originData = dataElement ? JSON.parse(dataElement.textContent) : []
             }
 
             data = filterDataByLimit(sortDataByDate(originData), limitConfig)
