@@ -179,6 +179,7 @@ module.exports = {
       enable: true,
       limit: 40,
       color: false,
+      custom_colors: null,
       orderby: 'random',
       order: 1,
       sort_order: null
