@@ -523,7 +523,9 @@ module.exports = {
     theme: {
       light: 'default',
       dark: 'dark'
-    }
+    },
+    open_in_new_tab: true,
+    zoom_pan: true
   },
   chartjs: {
     enable: false,
