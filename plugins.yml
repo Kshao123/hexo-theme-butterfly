@@ -95,7 +95,8 @@ fontawesome:
   name: '@fortawesome/fontawesome-free'
   file: css/all.min.css
   other_name: font-awesome
-  version: 7.1.0
+  # fixme 6.7.2 后的 version 在 zsstatic 中无法访问
+  version: 6.7.2
 gitalk:
   name: gitalk
   file: dist/gitalk.min.js
